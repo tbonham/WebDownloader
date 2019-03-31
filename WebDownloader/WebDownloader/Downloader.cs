@@ -5,13 +5,22 @@ using System.Threading.Tasks;
 namespace WebDownloader
 {
     public class Downloader
-    {
-        public async static Task<String> ResultsData(String Url)
+    {   
+        public async Task<String> DownloadStringAsync(String Url)
         {
-            Task<String> data = null;
+            String strResults = null;
             WebClient client = new WebClient();
-            client.DownloadStringAsync(new Uri(Url), data);
-            return await data;
+            strResults = await client.DownloadStringTaskAsync(Url);
+            return strResults;
+        }
+
+        public async Task<String> DownloadStringWithDefaultCredentialsAsync(String Url)
+        {
+            String strResults = null;
+            WebClient client = new WebClient();
+            client.UseDefaultCredentials = true;
+            strResults = await client.DownloadStringTaskAsync(Url);
+            return strResults;
         }
     }
 }
